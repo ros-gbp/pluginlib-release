@@ -1,3 +1,26 @@
+## pluginlib (indigo) - 1.10.2-0
+
+The packages in the `pluginlib` repository were released into the `indigo` distro by running `/usr/bin/bloom-release pluginlib -r indigo -t indigo` on `Fri, 18 Mar 2016 16:49:00 -0000`
+
+The `pluginlib` package was released.
+
+Version of package(s) in repository `pluginlib`:
+
+- upstream repository: https://github.com/ros/pluginlib
+- release repository: https://github.com/ros-gbp/pluginlib-release.git
+- rosdistro version: `1.10.1-0`
+- old version: `1.10.1-0`
+- new version: `1.10.2-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.21`
+- catkin_pkg version: `0.2.10`
+- rosdep version: `0.11.4`
+- rosdistro version: `0.4.5`
+- vcstools version: `0.1.38`
+
+
 ## pluginlib (kinetic) - 1.10.2-0
 
 The packages in the `pluginlib` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release pluginlib -t kinetic -r kinetic --new-track` on `Mon, 14 Mar 2016 18:17:55 -0000`
