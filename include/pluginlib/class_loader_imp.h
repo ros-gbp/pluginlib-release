@@ -59,6 +59,11 @@ namespace pluginlib
   /***************************************************************************/
   {
     ROS_DEBUG_NAMED("pluginlib.ClassLoader","Creating ClassLoader, base = %s, address = %p", base_class.c_str(), this);
+    if (ros::package::getPath(package_).empty())
+    {
+      throw pluginlib::ClassLoaderException("Unable to find package: " + package_);
+    }
+
     if (plugin_xml_paths_.size() == 0)
     {
       plugin_xml_paths_ = getPluginXmlPaths(package_, attrib_name_);
@@ -385,7 +390,7 @@ namespace pluginlib
   {
     //remove the package name to get the raw plugin name
     std::vector<std::string> split;
-    boost::split(split, lookup_name, boost::is_any_of("/"));
+    boost::split(split, lookup_name, boost::is_any_of("/:"));
     return split.back();
   }
 
