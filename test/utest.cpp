@@ -5,103 +5,35 @@
 TEST(PluginlibTest, unknownPlugin)
 {
   pluginlib::ClassLoader<test_base::Fubar> test_loader("pluginlib", "test_base::Fubar");
-
-  try
-  {
-    boost::shared_ptr<test_base::Fubar> foo = test_loader.createInstance("pluginlib/foobar");
-    foo->initialize(10.0);
-  }
-  catch(pluginlib::LibraryLoadException& ex)
-  {
-    SUCCEED();
-    return;
-  }
-  catch(...)
-  {
-    FAIL() << "Uncaught exception";
-  }
-  ADD_FAILURE() << "Didn't throw exception as expected";
- 
+  ASSERT_THROW(test_loader.createInstance("pluginlib/foobar"), pluginlib::LibraryLoadException);
 }
-
 
 TEST(PluginlibTest, misspelledPlugin)
 {
   pluginlib::ClassLoader<test_base::Fubar> bad_test_loader("pluginlib", "test_base::Fuba");
-
-  try
-  {
-    boost::shared_ptr<test_base::Fubar> foo = bad_test_loader.createInstance("pluginlib/foo");
-    foo->initialize(10.0);
-  }
-  catch(pluginlib::LibraryLoadException& ex)
-  {
-    SUCCEED();
-    return;
-  }
-  catch(...)
-  {
-    FAIL() << "Uncaught exception";
-  }
-  ADD_FAILURE() << "Didn't throw exception as expected";
- 
+  ASSERT_THROW(bad_test_loader.createInstance("pluginlib/foo"), pluginlib::LibraryLoadException);
 }
 
 TEST(PluginlibTest, invalidPackage)
-{  
-  try
-  {
-    pluginlib::ClassLoader<test_base::Fubar> bad_test_loader("pluginlib_bad", "test_base::Fubar");
-  }
-  catch(pluginlib::ClassLoaderException& ex)
-  {
-    SUCCEED();
-    return;
-  }
-  catch(...)
-  {
-    FAIL() << "Uncaught exception";
-  }
-  ADD_FAILURE() << "Didn't throw exception as expected";
- 
+{
+  ASSERT_THROW(pluginlib::ClassLoader<test_base::Fubar>("pluginlib_bad", "test_base::Fubar"), pluginlib::ClassLoaderException);
 }
 
 TEST(PluginlibTest, brokenPlugin)
 {
   pluginlib::ClassLoader<test_base::Fubar> test_loader("pluginlib", "test_base::Fubar");
-
-  try
-  {
-    boost::shared_ptr<test_base::Fubar> none = test_loader.createInstance("pluginlib/none");
-    none->initialize(10.0);
-  }
-  catch(pluginlib::PluginlibException& ex)
-  {
-    SUCCEED();
-    return;
-  }
-  catch(class_loader::ClassLoaderException& ex)
-  {
-    FAIL() << "class_loader exception instead of pluginlib, argh. " << ex.what() << "\n";
-  }
-  catch(...)
-  {
-    FAIL() << "Uncaught exception";
-  }
-  ADD_FAILURE() << "Didn't throw exception as expected";
- 
+  ASSERT_THROW(test_loader.createInstance("pluginlib/none"), pluginlib::PluginlibException);
 }
 
 TEST(PluginlibTest, workingPlugin)
 {
   pluginlib::ClassLoader<test_base::Fubar> test_loader("pluginlib", "test_base::Fubar");
-  
+
   try
   {
     boost::shared_ptr<test_base::Fubar> foo = test_loader.createInstance("pluginlib/foo");
     foo->initialize(10.0);
     EXPECT_EQ(foo->result(),100.0);
-
   }
   catch(pluginlib::PluginlibException& ex)
   {
@@ -161,7 +93,7 @@ TEST(PluginlibTest, createManagedInstanceAndUnloadLibrary)
   {
     FAIL() <<  "Library containing class should be loaded but isn't.";
   }
-  
+
   ROS_INFO( "Trying to unload class with unloadLibraryForClass..." );
   try
   {
@@ -172,6 +104,21 @@ TEST(PluginlibTest, createManagedInstanceAndUnloadLibrary)
     FAIL() << "Could not unload library when I should be able to.";
   }
   ROS_INFO( "Done." );
+}
+
+TEST(PluginlibTest, brokenXML)
+{
+  try
+  {
+    pluginlib::ClassLoader<test_base::Fubar> test_loader("pluginlib", "test_base::Fubar", "plugin_test");
+  }
+  catch(pluginlib::ClassLoaderException& ex)
+  {
+    SUCCEED();
+    return;
+  }
+
+  ADD_FAILURE() << "Didn't throw exception as expected";
 }
 
 // Run all the tests that were declared with TEST()
