@@ -1,3 +1,26 @@
+## pluginlib (kinetic) - 1.10.4-0
+
+The packages in the `pluginlib` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release pluginlib -t kinetic -r kinetic` on `Tue, 20 Sep 2016 22:40:02 -0000`
+
+The `pluginlib` package was released.
+
+Version of package(s) in repository `pluginlib`:
+
+- upstream repository: https://github.com/ros/pluginlib
+- release repository: https://github.com/ros-gbp/pluginlib-release.git
+- rosdistro version: `1.10.3-0`
+- old version: `1.10.3-0`
+- new version: `1.10.4-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.22`
+- catkin_pkg version: `0.2.10`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.4.7`
+- vcstools version: `0.1.39`
+
+
 ## pluginlib (jade) - 1.10.4-0
 
 The packages in the `pluginlib` repository were released into the `jade` distro by running `/usr/bin/bloom-release pluginlib -t jade -r jade` on `Tue, 20 Sep 2016 22:37:19 -0000`
