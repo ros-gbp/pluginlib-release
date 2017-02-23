@@ -1,3 +1,26 @@
+## pluginlib (lunar) - 1.10.4-0
+
+The packages in the `pluginlib` repository were released into the `lunar` distro by running `/usr/bin/bloom-release pluginlib --track lunar --rosdistro lunar --new-track` on `Thu, 23 Feb 2017 01:28:07 -0000`
+
+The `pluginlib` package was released.
+
+Version of package(s) in repository `pluginlib`:
+
+- upstream repository: https://github.com/ros/pluginlib
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `1.10.4-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.23`
+- catkin_pkg version: `0.3.1`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.6.1`
+- vcstools version: `0.1.39`
+
+
 ## pluginlib (kinetic) - 1.10.4-0
 
 The packages in the `pluginlib` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release pluginlib -t kinetic -r kinetic` on `Tue, 20 Sep 2016 22:40:02 -0000`
