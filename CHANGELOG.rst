@@ -2,6 +2,13 @@
 Changelog for package pluginlib
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.10.5 (2017-03-27)
+-------------------
+* Merge pull request `#47 <https://github.com/ros/pluginlib/issues/47>`_ from ros/fix_conversion
+  fix size_t to int conversion
+* fix int conversion
+* Contributors: Mikael Arguedas
+
 1.10.4 (2016-09-20)
 -------------------
 * Merge pull request `#42 <https://github.com/ros/pluginlib/issues/42>`_ from delftrobotics-forks/unique-ptr
