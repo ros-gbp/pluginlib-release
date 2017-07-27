@@ -26,7 +26,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
- 
+
 #ifndef PLUGINLIB_EXCEPTIONS_H_DEFINED
 #define PLUGINLIB_EXCEPTIONS_H_DEFINED
 
@@ -43,6 +43,16 @@ class PluginlibException: public std::runtime_error
 {
   public:
     PluginlibException(const std::string error_desc) : std::runtime_error(error_desc) {}
+};
+
+/**
+ * @class InvalidXMLException
+ * @brief An exception class thrown when pluginlib is unable to load a plugin XML file
+ */
+class InvalidXMLException: public PluginlibException
+{
+  public:
+    InvalidXMLException(const std::string error_desc) : PluginlibException(error_desc) {}
 };
 
 /**
