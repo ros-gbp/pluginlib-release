@@ -39,13 +39,42 @@
 #ifndef PLUGINLIB_CLASS_LOADER_IMP_H_
 #define PLUGINLIB_CLASS_LOADER_IMP_H_
 
-#include "boost/bind.hpp"
-#include "boost/filesystem.hpp"
+#include <cstdlib>
+#include <boost/algorithm/string.hpp>
+#include <boost/bind.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/foreach.hpp>
 #include <class_loader/class_loader.h>
 #include <list>
 #include "ros/package.h"
 #include <sstream>
 #include <stdexcept>
+
+#ifdef _WIN32
+const std::string os_pathsep(";");
+#else
+const std::string os_pathsep(":");
+#endif
+
+namespace
+{
+std::vector<std::string> catkinFindLib() {
+  std::vector<std::string> lib_paths;
+  const char* env = std::getenv("CMAKE_PREFIX_PATH");
+  if (env) {
+    std::string env_catkin_prefix_paths(env);
+    std::vector<std::string> catkin_prefix_paths;
+    boost::split(catkin_prefix_paths, env_catkin_prefix_paths, boost::is_any_of(os_pathsep));
+    BOOST_FOREACH(std::string catkin_prefix_path, catkin_prefix_paths) {
+      boost::filesystem::path path(catkin_prefix_path);
+      boost::filesystem::path lib("lib");
+      lib_paths.push_back((path / lib).string());
+    }
+  }
+  return lib_paths;
+}
+
+}
 
 namespace pluginlib
 {
@@ -79,23 +108,6 @@ namespace pluginlib
     ROS_DEBUG_NAMED("pluginlib.ClassLoader","Destroying ClassLoader, base = %s, address = %p", getBaseClassType().c_str(), this);
   }
 
-  template <class T>
-  std::string ClassLoader<T>::callCommandLine(const char* cmd)
-  /***************************************************************************/
-  {
-    FILE* pipe = popen(cmd, "r");
-    if (!pipe)
-      return "ERROR";
-    char buffer[128];
-    std::string result = "";
-    while(!feof(pipe))
-    {
-      if(fgets(buffer, 128, pipe) != NULL)
-              result += buffer;
-    }
-    pclose(pipe);
-    return result;
-  }
 
   template <class T>
   T* ClassLoader<T>::createClassInstance(const std::string& lookup_name, bool auto_load)
@@ -240,9 +252,9 @@ namespace pluginlib
   std::string ClassLoader<T>::extractPackageNameFromPackageXML(const std::string& package_xml_path)
  /***************************************************************************/
   {
-      TiXmlDocument document;
-      document.LoadFile(package_xml_path);
-      TiXmlElement* doc_root_node = document.FirstChildElement("package");
+      tinyxml2::XMLDocument document;
+      document.LoadFile(package_xml_path.c_str());
+      tinyxml2::XMLElement* doc_root_node = document.FirstChildElement("package");
       if (doc_root_node == NULL)
       {
         ROS_ERROR_NAMED("pluginlib.ClassLoader","Could not find a root element for package manifest at %s.", package_xml_path.c_str());
@@ -251,7 +263,7 @@ namespace pluginlib
 
       assert(doc_root_node == document.RootElement());
 
-      TiXmlElement* package_name_node = doc_root_node->FirstChildElement("name");
+      tinyxml2::XMLElement* package_name_node = doc_root_node->FirstChildElement("name");
       if(package_name_node == NULL)
       {
         ROS_ERROR_NAMED("pluginlib.ClassLoader","package.xml at %s does not have a <name> tag! Cannot determine package which exports plugin.", package_xml_path.c_str());
@@ -265,8 +277,7 @@ namespace pluginlib
   std::vector<std::string> ClassLoader<T>::getCatkinLibraryPaths()
   /***************************************************************************/
   {
-    //TODO: This needs to be replaced with an api call
-    return(parseToStringVector(callCommandLine("catkin_find --lib")));
+    return(catkinFindLib());
   }
 
   template <class T>
@@ -565,53 +576,32 @@ namespace pluginlib
   }
 
   template <class T>
-  std::vector<std::string> ClassLoader<T>::parseToStringVector(std::string newline_delimited_str)
-  /***************************************************************************/
-  {
-    std::string next;
-    std::vector<std::string> parse_result;
-    for(unsigned int c = 0; c < newline_delimited_str.size(); c++)
-    {
-      char ch = newline_delimited_str.at(c);
-      if(ch == '\n')
-      {
-        parse_result.push_back(next);
-        next = "";
-      }
-      else
-        next.push_back(ch);
-    }
-    return(parse_result);
-  }
-
-
-  template <class T>
   void ClassLoader<T>::processSingleXMLPluginFile(const std::string& xml_file, std::map<std::string, ClassDesc>& classes_available)
   /***************************************************************************/
   {
     ROS_DEBUG_NAMED("pluginlib.ClassLoader","Processing xml file %s...", xml_file.c_str());
-    TiXmlDocument document;
-    document.LoadFile(xml_file);
-    TiXmlElement * config = document.RootElement();
+    tinyxml2::XMLDocument document;
+    document.LoadFile(xml_file.c_str());
+    tinyxml2::XMLElement * config = document.RootElement();
     if (config == NULL)
     {
-      ROS_ERROR_NAMED("pluginlib.ClassLoader","Skipping XML Document \"%s\" which had no Root Element.  This likely means the XML is malformed or missing.", xml_file.c_str());
+      throw pluginlib::InvalidXMLException("XML Document has no Root Element.  This likely means the XML is malformed or missing.");
       return;
     }
-    if (config->ValueStr() != "library" &&
-        config->ValueStr() != "class_libraries")
+    if (!(strcmp(config->Value(), "library") == 0 ||
+          strcmp(config->Value(), "class_libraries") == 0))
     {
-      ROS_ERROR_NAMED("pluginlib.ClassLoader","The XML document \"%s\" given to add must have either \"library\" or \
-          \"class_libraries\" as the root tag", xml_file.c_str());
+      throw pluginlib::InvalidXMLException("The XML document given to add must have either \"library\" or \
+          \"class_libraries\" as the root tag");
       return;
     }
     //Step into the filter list if necessary
-    if (config->ValueStr() == "class_libraries")
+    if (strcmp(config->Value(), "class_libraries") == 0)
     {
       config = config->FirstChildElement("library");
     }
 
-    TiXmlElement* library = config;
+    tinyxml2::XMLElement* library = config;
     while ( library != NULL)
     {
       std::string library_path = library->Attribute("path");
@@ -625,7 +615,7 @@ namespace pluginlib
       if (package_name == "")
         ROS_ERROR_NAMED("pluginlib.ClassLoader","Could not find package manifest (neither package.xml or deprecated manifest.xml) at same directory level as the plugin XML file %s. Plugins will likely not be exported properly.\n)", xml_file.c_str());
 
-      TiXmlElement* class_element = library->FirstChildElement("class");
+      tinyxml2::XMLElement* class_element = library->FirstChildElement("class");
       while (class_element)
       {
         std::string derived_class;
@@ -658,7 +648,7 @@ namespace pluginlib
         if(base_class_type == base_class_){
 
           // register class here
-          TiXmlElement* description = class_element->FirstChildElement("description");
+          tinyxml2::XMLElement* description = class_element->FirstChildElement("description");
           std::string description_str;
           if (description)
             description_str = description->GetText() ? description->GetText() : "";
