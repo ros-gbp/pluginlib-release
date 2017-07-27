@@ -37,7 +37,7 @@
 #include "pluginlib/pluginlib_exceptions.h"
 #include "ros/console.h"
 #include "ros/package.h"
-#include "tinyxml.h"
+#include "tinyxml2.h"
 
 //Note: pluginlib has traditionally utilized a "lookup name" for classes that does not match its real C++ name. This was
 //done due to limitations of how pluginlib was implemented. As of version 1.9, a lookup name is no longer necessary and
@@ -225,10 +225,6 @@ namespace pluginlib
         virtual int unloadLibraryForClass(const std::string& lookup_name);
 
       private:
-        /**
-         * Calls a program from command line and returns output to stdout as a string
-         */
-        std::string callCommandLine(const char* cmd);
 
         /**
          * Returns the paths to plugin.xml files.
@@ -280,17 +276,12 @@ namespace pluginlib
         /**
         * Gets the package name from a path to a plugin XML file
         */
-        std::string getPackageFromPluginXMLFilePath(const std::string & path);  
+        std::string getPackageFromPluginXMLFilePath(const std::string & path);
 
         /**
         * Joins two filesystem paths together utilzing appropriate path separator
         */
-        std::string joinPaths(const std::string& path1, const std::string& path2);       
-
-        /**
-         *Parses a string delimited by newlines into a vector of strings
-         */
-        std::vector<std::string> parseToStringVector(std::string newline_delimited_str);
+        std::string joinPaths(const std::string& path1, const std::string& path2);
 
         /**
          * Parses a plugin XML file and inserts the appropriate ClassDesc entries into the passes classes_available map
@@ -308,7 +299,7 @@ namespace pluginlib
          * @param  library_path The exact path to the library to unload
          * @return The number of pending unloads until the library is removed from memory
          */
-        int unloadClassLibraryInternal(const std::string& library_path);        
+        int unloadClassLibraryInternal(const std::string& library_path);
 
      private:
         std::vector<std::string> plugin_xml_paths_;
@@ -323,4 +314,3 @@ namespace pluginlib
 #include "class_loader_imp.h" //Note: The implementation of the methods is in a separate file for clarity
 
 #endif //PLUGINLIB_CLASS_LOADER_H
-
