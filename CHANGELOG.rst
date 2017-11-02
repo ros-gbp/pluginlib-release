@@ -2,6 +2,22 @@
 Changelog for package pluginlib
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+1.11.1 (2017-10-27)
+-------------------
+* update macros in tests to not use the deprecated ones (`#78 <https://github.com/ros/pluginlib/issues/78>`_)
+* update documentation to use doxygen c++ format (`#75 <https://github.com/ros/pluginlib/issues/75>`_)
+* style cleanup (`#64 <https://github.com/ros/pluginlib/issues/64>`_, `#68 <https://github.com/ros/pluginlib/issues/68>`_, `#73 <https://github.com/ros/pluginlib/issues/73>`_ and `#72 <https://github.com/ros/pluginlib/issues/72>`_)
+* add missing include (`#63 <https://github.com/ros/pluginlib/issues/63>`_)
+* Contributors: Mikael Arguedas, William Woodall
+
+1.11.0 (2017-07-27)
+-------------------
+* Switch to Tinyxml2 (`#59 <https://github.com/ros/pluginlib/issues/59>`_)
+* do not use popen to solve catkin_path. (`#49 <https://github.com/ros/pluginlib/issues/49>`_)
+* switch to package format 2 (`#55 <https://github.com/ros/pluginlib/issues/55>`_)
+* remove trailing whitespaces (`#54 <https://github.com/ros/pluginlib/issues/54>`_)
+* Contributors: Dmitry Rozhkov, Koji Terada, Mikael Arguedas
+
 1.10.5 (2017-03-27)
 -------------------
 * Merge pull request `#47 <https://github.com/ros/pluginlib/issues/47>`_ from ros/fix_conversion
