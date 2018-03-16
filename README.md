@@ -1,3 +1,26 @@
+## pluginlib (indigo) - 1.10.7-0
+
+The packages in the `pluginlib` repository were released into the `indigo` distro by running `/usr/bin/bloom-release pluginlib -r indigo -t indigo` on `Fri, 16 Mar 2018 18:31:14 -0000`
+
+The `pluginlib` package was released.
+
+Version of package(s) in repository `pluginlib`:
+
+- upstream repository: https://github.com/ros/pluginlib
+- release repository: https://github.com/ros-gbp/pluginlib-release.git
+- rosdistro version: `1.10.6-0`
+- old version: `1.10.6-0`
+- new version: `1.10.7-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.2`
+- catkin_pkg version: `0.4.1`
+- rosdep version: `0.12.1`
+- rosdistro version: `0.6.6`
+- vcstools version: `0.1.40`
+
+
 ## pluginlib (melodic) - 1.12.0-0
 
 The packages in the `pluginlib` repository were released into the `melodic` distro by running `/usr/bin/bloom-release pluginlib -r melodic -t melodic --new-track` on `Wed, 14 Mar 2018 18:38:38 -0000`
