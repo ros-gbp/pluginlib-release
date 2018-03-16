@@ -2,22 +2,18 @@
 Changelog for package pluginlib
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.12.0 (2018-03-14)
+1.10.7 (2018-03-16)
 -------------------
-* [warning fix]Cherry-pick `#103 <https://github.com/ros/pluginlib/issues/103>`_ to melodic-devel (`#105 <https://github.com/ros/pluginlib/issues/105>`_)
-* [migration helper] provide a script to convert include statements to use new headers (`#104 <https://github.com/ros/pluginlib/issues/104>`_)
-* [migration] use new class_loader headers and fix deprecation warnings (`#101 <https://github.com/ros/pluginlib/issues/101>`_)
-* [bugfix] Continue loading classes on error (`#85 <https://github.com/ros/pluginlib/issues/85>`_) (`#88 <https://github.com/ros/pluginlib/issues/88>`_)
-* [style] Fix cpplint and lint_cmake errors (`#84 <https://github.com/ros/pluginlib/issues/84>`_)
-* move pluginlib in its own folder (`#83 <https://github.com/ros/pluginlib/issues/83>`_)
-* Contributors: Mikael Arguedas
+* Provide a script to convert include statements to use new headers (`#108 <https://github.com/ros/pluginlib/issues/108>`_)
+* Provide alternative headers for multi distro support (`#106 <https://github.com/ros/pluginlib/issues/106>`_)
+* Contributors: Mikael Arguedas, William Woodall
 
-1.11.0 (2017-07-27)
+1.10.6 (2017-12-18)
 -------------------
-* Switch to Tinyxml2 (`#59 <https://github.com/ros/pluginlib/issues/59>`_)
 * do not use popen to solve catkin_path. (`#49 <https://github.com/ros/pluginlib/issues/49>`_)
 * switch to package format 2 (`#55 <https://github.com/ros/pluginlib/issues/55>`_)
-* remove trailing whitespaces (`#54 <https://github.com/ros/pluginlib/issues/54>`_)
+* Merge pull request `#54 <https://github.com/ros/pluginlib/issues/54>`_ from ros/trailing_whitespaces
+  trailing whitespaces
 * Contributors: Dmitry Rozhkov, Koji Terada, Mikael Arguedas
 
 1.10.5 (2017-03-27)

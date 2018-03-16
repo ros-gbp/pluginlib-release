@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2012, Willow Garage, Inc.
+ * Software License Agreement (BSD License)
+ *
+ * Copyright (c) 2017, Open Source Robotics Foundation, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -10,7 +12,7 @@
  *     * Redistributions in binary form must reproduce the above copyright
  *       notice, this list of conditions and the following disclaimer in the
  *       documentation and/or other materials provided with the distribution.
- *     * Neither the name of the Willow Garage, Inc. nor the names of its
+ *     * Neither the name of the copyright holders nor the names of its
  *       contributors may be used to endorse or promote products derived from
  *       this software without specific prior written permission.
  *
@@ -27,9 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <pluginlib/class_list_macros.hpp>
-#include "./test_base.h"
-#include "test_plugins.h"  // NOLINT
+#ifndef PLUGINLIB__PLUGINLIB_EXCEPTIONS_H_
+#define PLUGINLIB__PLUGINLIB_EXCEPTIONS_H_
 
-PLUGINLIB_EXPORT_CLASS(test_plugins::Foo, test_base::Fubar)
-PLUGINLIB_EXPORT_CLASS(test_plugins::Bar, test_base::Fubar)
+#include "./exceptions.hpp"
+
+#endif  // PLUGINLIB__PLUGINLIB_EXCEPTIONS_H_

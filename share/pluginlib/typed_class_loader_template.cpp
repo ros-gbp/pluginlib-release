@@ -26,21 +26,46 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+#include <ros/console.h>
+#include <pluginlib/class_loader.h>
+#include <vector>
+#include <string>
+#include <iostream>
 
-#ifndef TEST_BASE_H_
-#define TEST_BASE_H_
+@
 
-namespace test_base
+extern "C"
 {
-class Fubar
-{
-public:
-  virtual void initialize(double foo) = 0;
-  virtual double result() = 0;
-  virtual ~Fubar() {}
+  std::vector<std::string> availablePlugins(const std::string& package_name)
+  {
+    pluginlib::ClassLoader<$> class_loader(package_name, "$");
+    return(class_loader.getDeclaredClasses());
+  }
 
-protected:
-  Fubar() {}
-};
-}  // namespace test_base
-#endif  // TEST_BASE_H_
+  bool loadPlugin(const std::string& package_name, const std::string& class_name)
+  {
+    pluginlib::ClassLoader<$> class_loader(package_name, "$");
+    try
+    {
+      class_loader.createInstance(class_name);
+      return true;
+    }
+    catch(...)
+    {
+      return false;
+    }
+  }
+
+  std::string whereIsPluginLocated(const std::string& package_name, const std::string& class_name)
+  {
+    pluginlib::ClassLoader<$> class_loader(package_name, "$");
+    try
+    {
+      return class_loader.getClassLibraryPath(class_name);
+    }
+    catch(...)
+    {
+      return ("Could not find location of plugin " + class_name);
+    }
+  }
+}

@@ -1,4 +1,4 @@
-/*
+ /*
  * Copyright (c) 2012, Willow Garage, Inc.
  * All rights reserved.
  *
@@ -31,77 +31,61 @@
 #define PLUGINLIB__EXCEPTIONS_HPP_
 
 #include <stdexcept>
-#include <string>
 
 namespace pluginlib
 {
 
-/// A base class for all pluginlib exceptions that inherits from std::runtime_exception.
 /**
- * \class PluginlibException
+ * @class PluginlibException
+ * @brief A base class for all pluginlib exceptions that inherits from std::runtime_exception
  */
-class PluginlibException : public std::runtime_error
+class PluginlibException: public std::runtime_error
 {
-public:
-  explicit PluginlibException(const std::string & error_desc)
-  : std::runtime_error(error_desc) {}
+  public:
+    PluginlibException(const std::string error_desc) : std::runtime_error(error_desc) {}
 };
 
-/// Thrown when pluginlib is unable to load a plugin XML file.
 /**
- * \class InvalidXMLException
+ * @class LibraryLoadException
+ * @brief An exception class thrown when pluginlib is unable to load the library associated with a given plugin
  */
-class InvalidXMLException : public PluginlibException
+class LibraryLoadException: public PluginlibException
 {
-public:
-  explicit InvalidXMLException(const std::string & error_desc)
-  : PluginlibException(error_desc) {}
+  public:
+    LibraryLoadException(const std::string error_desc) : PluginlibException(error_desc) {}
 };
 
-/// Thrown when pluginlib is unable to load the library associated with a given plugin.
 /**
- * \class LibraryLoadException
+ * @class ClassLoaderException
+ * @brief An exception class thrown when pluginlib is unable to instantiate a class loader
  */
-class LibraryLoadException : public PluginlibException
+class ClassLoaderException: public PluginlibException
 {
-public:
-  explicit LibraryLoadException(const std::string & error_desc)
-  : PluginlibException(error_desc) {}
+  public:
+    ClassLoaderException(const std::string error_desc) : PluginlibException(error_desc) {}
 };
 
-/// Thrown when pluginlib is unable to instantiate a class loader.
 /**
- * \class ClassLoaderException
+ * @class LibraryUnloadException
+ * @brief An exception class thrown when pluginlib is unable to unload the library associated with a given plugin
  */
-class ClassLoaderException : public PluginlibException
+class LibraryUnloadException: public PluginlibException
 {
-public:
-  explicit ClassLoaderException(const std::string & error_desc)
-  : PluginlibException(error_desc) {}
+  public:
+    LibraryUnloadException(const std::string error_desc) : PluginlibException(error_desc) {}
 };
 
-/// Thrown when pluginlib is unable to unload the library associated with a given plugin.
 /**
- * \class LibraryUnloadException
+ * @class CreateClassException
+ * @brief An exception class thrown when pluginlib is unable to create the class associated with a given plugin
  */
-class LibraryUnloadException : public PluginlibException
+class CreateClassException: public PluginlibException
 {
-public:
-  explicit LibraryUnloadException(const std::string & error_desc)
-  : PluginlibException(error_desc) {}
+  public:
+    CreateClassException(const std::string error_desc) : PluginlibException(error_desc) {}
 };
 
-/// Thrown when pluginlib is unable to create the class associated with a given plugin.
-/**
- * \class CreateClassException
- */
-class CreateClassException : public PluginlibException
-{
-public:
-  explicit CreateClassException(const std::string & error_desc)
-  : PluginlibException(error_desc) {}
-};
 
-}  // namespace pluginlib
+}
 
 #endif  // PLUGINLIB__EXCEPTIONS_HPP_

@@ -29,13 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef PLUGINLIB__CLASS_DESC_H_
-#define PLUGINLIB__CLASS_DESC_H_
+#ifndef PLUGINLIB__CLASS_LOADER_IMP_H_
+#define PLUGINLIB__CLASS_LOADER_IMP_H_
 
-// *INDENT-OFF* (prevent uncrustify from adding indention below)
-#warning Including header <pluginlib/class_desc.h> is deprecated, \
-include <pluginlib/class_desc.hpp> instead.
+#include "./class_loader_imp.hpp"
 
-#include "./class_desc.hpp"
-
-#endif  // PLUGINLIB__CLASS_DESC_H_
+#endif  // PLUGINLIB__CLASS_LOADER_IMP_H_
