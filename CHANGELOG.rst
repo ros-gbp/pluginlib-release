@@ -2,18 +2,46 @@
 Changelog for package pluginlib
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-1.10.7 (2018-03-16)
+1.11.3 (2018-03-16)
 -------------------
-* Provide a script to convert include statements to use new headers (`#108 <https://github.com/ros/pluginlib/issues/108>`_)
-* Provide alternative headers for multi distro support (`#106 <https://github.com/ros/pluginlib/issues/106>`_)
+* Provide a script to convert include statements to use new headers (`#107 <https://github.com/ros/pluginlib/issues/107>`_)
+* docs: fix minor typo (`#100 <https://github.com/ros/pluginlib/issues/100>`_)
+  Replace wrong/outdated `manifext.xml` with `package.xml` in the docstring of the constructor.
+* Contributors: Alireza, Mikael Arguedas
+
+1.11.2 (2017-11-15)
+-------------------
+* Fix cpplint and lint_cmake errors (backport 84) (`#87 <https://github.com/ros/pluginlib/issues/87>`_)
+  * fix line length
+  add back NOLINT on test header to avoid 'should include its header file' cpplint error
+  * lint cmake
+* Continue loading classes on error (`#85 <https://github.com/ros/pluginlib/issues/85>`_)
+  * continue loading classes on error
+  * construct string with file rather than adding new API
+  * match style of the rest of the file
+  * missing whitespace
+* Backport 70 to kinetic (`#82 <https://github.com/ros/pluginlib/issues/82>`_)
+  * rename header files to make clear they are c++
+  * fixup to support new header file names
+  * restore old header names with deprecation warnings for API stability
+  * remove deprecation warnings
+* alphabetize includes (`#80 <https://github.com/ros/pluginlib/issues/80>`_)
+* Contributors: Furushchev, Mikael Arguedas
+
+1.11.1 (2017-10-27)
+-------------------
+* update macros in tests to not use the deprecated ones (`#78 <https://github.com/ros/pluginlib/issues/78>`_)
+* update documentation to use doxygen c++ format (`#75 <https://github.com/ros/pluginlib/issues/75>`_)
+* style cleanup (`#64 <https://github.com/ros/pluginlib/issues/64>`_, `#68 <https://github.com/ros/pluginlib/issues/68>`_, `#73 <https://github.com/ros/pluginlib/issues/73>`_ and `#72 <https://github.com/ros/pluginlib/issues/72>`_)
+* add missing include (`#63 <https://github.com/ros/pluginlib/issues/63>`_)
 * Contributors: Mikael Arguedas, William Woodall
 
-1.10.6 (2017-12-18)
+1.11.0 (2017-07-27)
 -------------------
+* Switch to Tinyxml2 (`#59 <https://github.com/ros/pluginlib/issues/59>`_)
 * do not use popen to solve catkin_path. (`#49 <https://github.com/ros/pluginlib/issues/49>`_)
 * switch to package format 2 (`#55 <https://github.com/ros/pluginlib/issues/55>`_)
-* Merge pull request `#54 <https://github.com/ros/pluginlib/issues/54>`_ from ros/trailing_whitespaces
-  trailing whitespaces
+* remove trailing whitespaces (`#54 <https://github.com/ros/pluginlib/issues/54>`_)
 * Contributors: Dmitry Rozhkov, Koji Terada, Mikael Arguedas
 
 1.10.5 (2017-03-27)
