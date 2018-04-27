@@ -1,3 +1,26 @@
+## pluginlib (melodic) - 1.12.1-0
+
+The packages in the `pluginlib` repository were released into the `melodic` distro by running `/usr/bin/bloom-release pluginlib -r melodic -t melodic` on `Fri, 27 Apr 2018 20:54:59 -0000`
+
+The `pluginlib` package was released.
+
+Version of package(s) in repository `pluginlib`:
+
+- upstream repository: https://github.com/ros/pluginlib
+- release repository: https://github.com/ros-gbp/pluginlib-release.git
+- rosdistro version: `1.12.0-0`
+- old version: `1.12.0-0`
+- new version: `1.12.1-0`
+
+Versions of tools used:
+
+- bloom version: `0.6.4`
+- catkin_pkg version: `0.4.1`
+- rosdep version: `0.12.2`
+- rosdistro version: `0.6.8`
+- vcstools version: `0.1.40`
+
+
 ## pluginlib (lunar) - 1.11.3-0
 
 The packages in the `pluginlib` repository were released into the `lunar` distro by running `/usr/bin/bloom-release pluginlib -r lunar -t lunar` on `Fri, 16 Mar 2018 18:44:50 -0000`
