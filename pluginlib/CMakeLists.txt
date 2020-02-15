@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.3)
+cmake_minimum_required(VERSION 3.0.2)
 project(pluginlib)
 
 find_package(catkin REQUIRED COMPONENTS class_loader rosconsole roslib cmake_modules)
@@ -15,6 +15,7 @@ if(CATKIN_ENABLE_TESTING)
   include_directories(include ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} ${TinyXML2_INCLUDE_DIRS})
 
   add_library(test_plugins EXCLUDE_FROM_ALL SHARED test/test_plugins.cpp)
+  target_link_libraries(test_plugins ${class_loader_LIBRARIES})
 
   catkin_add_gtest(${PROJECT_NAME}_utest test/utest.cpp)
   if(TARGET ${PROJECT_NAME}_utest)
