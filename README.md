@@ -1,3 +1,26 @@
+## pluginlib (noetic) - 1.12.2-1
+
+The packages in the `pluginlib` repository were released into the `noetic` distro by running `/home/steven/.local/bin/bloom-release -n -r noetic pluginlib --override-release-repository-push-url git@github.com:ros-gbp/pluginlib-release` on `Sat, 15 Feb 2020 00:05:23 -0000`
+
+The `pluginlib` package was released.
+
+Version of package(s) in repository `pluginlib`:
+
+- upstream repository: https://github.com/ros/pluginlib.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `1.12.2-1`
+
+Versions of tools used:
+
+- bloom version: `0.9.1`
+- catkin_pkg version: `0.4.16`
+- rosdep version: `0.18.0`
+- rosdistro version: `0.8.0`
+- vcstools version: `0.1.42`
+
+
 ## pluginlib (melodic) - 1.12.1-0
 
 The packages in the `pluginlib` repository were released into the `melodic` distro by running `/usr/bin/bloom-release pluginlib -r melodic -t melodic` on `Fri, 27 Apr 2018 20:54:59 -0000`
