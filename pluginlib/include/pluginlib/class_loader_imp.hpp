@@ -48,7 +48,6 @@
 #include <vector>
 
 #include "boost/algorithm/string.hpp"
-#include "boost/bind.hpp"
 #include "boost/filesystem.hpp"
 #include "boost/foreach.hpp"
 #include "class_loader/class_loader.hpp"
@@ -319,7 +318,7 @@ std::vector<std::string> ClassLoader<T>::getCatkinLibraryPaths()
     boost::split(catkin_prefix_paths, env_catkin_prefix_paths, boost::is_any_of(os_pathsep));
     BOOST_FOREACH(std::string catkin_prefix_path, catkin_prefix_paths) {
       boost::filesystem::path path(catkin_prefix_path);
-#if _WIN32
+#ifdef _WIN32
       boost::filesystem::path bin("bin");
       lib_paths.push_back((path / bin).string());
 #endif
@@ -436,10 +435,13 @@ std::string ClassLoader<T>::getClassLibraryPath(const std::string & lookup_name)
     it++)
   {
     ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Checking path %s ", it->c_str());
-    if (boost::filesystem::exists(*it)) {
-      ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Library %s found at explicit path %s.",
-        library_name.c_str(), it->c_str());
-      return *it;
+    boost::system::error_code error_code; // pass an error code to avoid throwing.
+    if (boost::filesystem::exists(*it, error_code)) {
+      if (error_code.value() == boost::system::errc::success) {
+        ROS_DEBUG_NAMED("pluginlib.ClassLoader", "Library %s found at explicit path %s.",
+          library_name.c_str(), it->c_str());
+        return *it;
+      }
     }
   }
   return "";
